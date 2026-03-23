@@ -14,7 +14,7 @@ let storage = multer.diskStorage({
     }
 })
 
-let customFileFilter = function (req, file, cb) {
+let customFileFilterImage = function (req, file, cb) {
     if (file.mimetype.startsWith('image')) {
         cb(null, true)
     } else {
@@ -22,8 +22,23 @@ let customFileFilter = function (req, file, cb) {
     }
 }
 
-module.exports = multer({
-    storage: storage,
-    limits: 5 * 1024 * 1024,
-    fileFilter: customFileFilter    
-})
+let customFileFilterExcel = function (req, file, cb) {
+    if (file.mimetype.includes('spreadsheetml')) {
+        cb(null, true)
+    } else {
+        cb(new Error("dinh dang khong dung", false))
+    }
+}
+
+module.exports = {
+    uploadImage: multer({
+        storage: storage,
+        limits: 5 * 1024 * 1024,
+        fileFilter: customFileFilterImage
+    }),
+    uploadExcel: multer({
+        storage: storage,
+        limits: 5 * 1024 * 1024,
+        fileFilter: customFileFilterExcel
+    })
+}

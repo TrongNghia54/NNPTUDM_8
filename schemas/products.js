@@ -3,7 +3,13 @@ let mongoose = require('mongoose')
 let productSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+         unique: true
+    },
+    sku: {
+        type: String,
+        required: true,
+        unique: true
     },
     slug: {
         type: String,

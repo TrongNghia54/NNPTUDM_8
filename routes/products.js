@@ -47,7 +47,7 @@ router.get('/:id', async function (req, res, next) {
 
 router.post('/', async function (req, res, next) {
   let session = await mongoose.startSession();
-  let transaction = session.startTransaction()
+  session.startTransaction()
   try {
     let newItem = new productModel({
       title: req.body.title,
